@@ -17,7 +17,7 @@ Get the acme-dns-auth.py script: https://raw.githubusercontent.com/USU-Security/
 (I usually put it in the /etc/letsencrypt folder)
 
 ```
-wget "https://raw.githubusercontent.com/USU-Security/acme-dns-auth/main/acme-dns-auth.py"
+wget "https://raw.githubusercontent.com/utahstate/acme-dns-auth/main/acme-dns-auth.py"
 ```
 
 Make the script executable:
