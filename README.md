@@ -72,7 +72,7 @@ Put that in a file in the renewal-hook/post directory and make sure it is execut
 2. Add a line like this into /etc/letsencrypt/cli.ini or the renewal configuration file in /etc/letsencrypt/renewal/<hostname>.conf (this will reload an nginx server)
 
 ```
-deploy-hook service nginx reload
+deploy-hook = service nginx reload
 ```
 
 
