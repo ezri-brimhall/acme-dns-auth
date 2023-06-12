@@ -146,15 +146,19 @@ if __name__ == "__main__":
 
     # Check if an account already exists in storage
     account = storage.fetch(DOMAIN)
+
+    auto_added = False
     if FORCE_REGISTER or not account:
         # Create and save the new account
         account = client.register_account(ALLOW_FROM)
         storage.put(DOMAIN, account)
         storage.save()
 
-        # TODO: Add OpenIPAM integration for automatic DNS record creation
         openipam_url = os.environ.get("OPENIPAM_URL", "https://openipam.usu.edu")
-        auth_token = os.environ.get("OPENIPAM_TOKEN")
+        try:
+            auth_token = OPENIPAM_TOKEN
+        except NameError:
+            auth_token = os.environ.get("OPENIPAM_TOKEN")
         if auth_token:
             try:
                 res = requests.post(
@@ -170,6 +174,7 @@ if __name__ == "__main__":
                 )
                 if res.status_code != 201:
                     raise Exception(f"Failed to add DNS record: {res.text}")
+                auto_added = True
             except Exception as e:
                 print(f"Error: {e}")
                 print("Unable to create DNS record automatically.")
@@ -184,3 +189,10 @@ if __name__ == "__main__":
 
     # Update the TXT record in acme-dns instance
     client.update_txt_record(account, VALIDATION_TOKEN)
+
+    # Wait for the DNS record to propagate
+    if auto_added:
+        import time
+
+        print("Waiting for DNS records to propagate...")
+        time.sleep(10)
