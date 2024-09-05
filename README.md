@@ -12,7 +12,7 @@ If you don’t already have the Python Requests library installed, you will need
 pip install requests
 ```
 
-Get the acme-dns-auth.py script: https://raw.githubusercontent.com/USU-Security/acme-dns-auth/main/acme-dns-auth.py
+Get the acme-dns-auth.py script: https://raw.githubusercontent.com/utahstate/acme-dns-auth/main/acme-dns-auth.py
 
 (I usually put it in the /etc/letsencrypt folder)
 
